@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC
+        "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <!--指定特定数据库的jdbc驱动jar包的位置 -->
+    <!--<classPathEntry location="mysql-connector-java-5.1.37-bin.jar"/>-->
+
+    <context id="XMBG-01" targetRuntime="MyBatis3">
+        <!-- 生成的 Java 文件的编码 -->
+        <property name="javaFileEncoding" value="UTF-8"/>
+        <!-- 格式化 Java 代码 -->
+        <property name="javaFormatter" value="org.mybatis.generator.api.dom.DefaultJavaFormatter"/>
+        <!-- 格式化 XML 代码 -->
+        <property name="xmlFormatter" value="org.mybatis.generator.api.dom.DefaultXmlFormatter"/>
+
+        <!-- plugin -->
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin" />
+        <plugin type="com.kona.base.mybatis.generator.LombokPlugin" />
+
+        <!-- 自定义注释生成器 -->
+        <commentGenerator type="com.kona.base.mybatis.generator.CommentGeneratorWrapper">
+            <property name="author" value="Generator"/>
+            <property name="dateFormat" value="yyyy-MM-dd"/>
+        </commentGenerator>
+
+        <!-- 配置数据库连接 -->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&amp;characterEncoding=utf-8"
+                        userId="panyuanyuan"
+                        password="123456">
+
+            <property name="useInformationSchema" value="true" />
+        </jdbcConnection>
+
+        <!--默认false Java type resolver will always use java.math.BigDecimal if the database column is of type DECIMAL or NUMERIC. -->
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+
+        <!-- 生成实体的位置 -->
+        <javaModelGenerator targetPackage="com.kona.framework.model.po" targetProject="MAVEN">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="false"/>
+            <property name="rootClass" value="com.kona.base.model.po.BasePo" />
+        </javaModelGenerator>
+
+        <!-- 生成 Mapper 接口的位置 -->
+        <sqlMapGenerator targetPackage="com.kona.framework.dao" targetProject="MAVEN">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+
+        <!-- 生成 Mapper XML 的位置 -->
+        <javaClientGenerator targetPackage="com.kona.framework.dao" type="XMLMAPPER" targetProject="MAVEN">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+
+        <!-- 设置数据库的表名和实体类名 -->
+        <table tableName="pipe_task" domainObjectName="PipeTask" mapperName="PipeTaskDao"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false">
+            <generatedKey column="id" sqlStatement="JDBC" identity="true" />
+        </table>
+
+    </context>
+
+</generatorConfiguration>

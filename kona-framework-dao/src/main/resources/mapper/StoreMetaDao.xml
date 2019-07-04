@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kona.framework.dao.StoreMetaDao">
+  <resultMap id="BaseResultMap" type="com.kona.framework.model.po.StoreMeta">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="created" jdbcType="TIMESTAMP" property="created" />
+    <result column="updator" jdbcType="VARCHAR" property="updator" />
+    <result column="updated" jdbcType="TIMESTAMP" property="updated" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="store_no" jdbcType="VARCHAR" property="storeNo" />
+    <result column="store_name" jdbcType="VARCHAR" property="storeName" />
+    <result column="merchant_no" jdbcType="VARCHAR" property="merchantNo" />
+    <result column="merchant_name" jdbcType="VARCHAR" property="merchantName" />
+    <result column="store_type" jdbcType="CHAR" property="storeType" />
+    <result column="store_logo_url" jdbcType="VARCHAR" property="storeLogoUrl" />
+    <result column="store_background_url" jdbcType="VARCHAR" property="storeBackgroundUrl" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, creator, created, updator, updated, modify_time, store_no, store_name, merchant_no, 
+    merchant_name, store_type, store_logo_url, store_background_url
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from store_meta
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from store_meta
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.kona.framework.model.po.StoreMeta" useGeneratedKeys="true">
+    insert into store_meta (creator, created, updator, 
+      updated, modify_time, store_no, 
+      store_name, merchant_no, merchant_name, 
+      store_type, store_logo_url, store_background_url
+      )
+    values (#{creator,jdbcType=VARCHAR}, #{created,jdbcType=TIMESTAMP}, #{updator,jdbcType=VARCHAR}, 
+      #{updated,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP}, #{storeNo,jdbcType=VARCHAR}, 
+      #{storeName,jdbcType=VARCHAR}, #{merchantNo,jdbcType=VARCHAR}, #{merchantName,jdbcType=VARCHAR}, 
+      #{storeType,jdbcType=CHAR}, #{storeLogoUrl,jdbcType=VARCHAR}, #{storeBackgroundUrl,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.kona.framework.model.po.StoreMeta" useGeneratedKeys="true">
+    insert into store_meta
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="creator != null">
+        creator,
+      </if>
+      <if test="created != null">
+        created,
+      </if>
+      <if test="updator != null">
+        updator,
+      </if>
+      <if test="updated != null">
+        updated,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="storeNo != null">
+        store_no,
+      </if>
+      <if test="storeName != null">
+        store_name,
+      </if>
+      <if test="merchantNo != null">
+        merchant_no,
+      </if>
+      <if test="merchantName != null">
+        merchant_name,
+      </if>
+      <if test="storeType != null">
+        store_type,
+      </if>
+      <if test="storeLogoUrl != null">
+        store_logo_url,
+      </if>
+      <if test="storeBackgroundUrl != null">
+        store_background_url,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="creator != null">
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="created != null">
+        #{created,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updator != null">
+        #{updator,jdbcType=VARCHAR},
+      </if>
+      <if test="updated != null">
+        #{updated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="storeNo != null">
+        #{storeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="storeName != null">
+        #{storeName,jdbcType=VARCHAR},
+      </if>
+      <if test="merchantNo != null">
+        #{merchantNo,jdbcType=VARCHAR},
+      </if>
+      <if test="merchantName != null">
+        #{merchantName,jdbcType=VARCHAR},
+      </if>
+      <if test="storeType != null">
+        #{storeType,jdbcType=CHAR},
+      </if>
+      <if test="storeLogoUrl != null">
+        #{storeLogoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="storeBackgroundUrl != null">
+        #{storeBackgroundUrl,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.kona.framework.model.po.StoreMeta">
+    update store_meta
+    <set>
+      <if test="creator != null">
+        creator = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="created != null">
+        created = #{created,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updator != null">
+        updator = #{updator,jdbcType=VARCHAR},
+      </if>
+      <if test="updated != null">
+        updated = #{updated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="storeNo != null">
+        store_no = #{storeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="storeName != null">
+        store_name = #{storeName,jdbcType=VARCHAR},
+      </if>
+      <if test="merchantNo != null">
+        merchant_no = #{merchantNo,jdbcType=VARCHAR},
+      </if>
+      <if test="merchantName != null">
+        merchant_name = #{merchantName,jdbcType=VARCHAR},
+      </if>
+      <if test="storeType != null">
+        store_type = #{storeType,jdbcType=CHAR},
+      </if>
+      <if test="storeLogoUrl != null">
+        store_logo_url = #{storeLogoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="storeBackgroundUrl != null">
+        store_background_url = #{storeBackgroundUrl,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.kona.framework.model.po.StoreMeta">
+    update store_meta
+    set creator = #{creator,jdbcType=VARCHAR},
+      created = #{created,jdbcType=TIMESTAMP},
+      updator = #{updator,jdbcType=VARCHAR},
+      updated = #{updated,jdbcType=TIMESTAMP},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      store_no = #{storeNo,jdbcType=VARCHAR},
+      store_name = #{storeName,jdbcType=VARCHAR},
+      merchant_no = #{merchantNo,jdbcType=VARCHAR},
+      merchant_name = #{merchantName,jdbcType=VARCHAR},
+      store_type = #{storeType,jdbcType=CHAR},
+      store_logo_url = #{storeLogoUrl,jdbcType=VARCHAR},
+      store_background_url = #{storeBackgroundUrl,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

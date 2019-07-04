@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="60 seconds" debug="false">
+    <!-- 应用ID属性 -->
+    <property name="appId" value="kona-framework" />
+
+    <!-- 默认日志保存历史时间:天 -->
+    <property name="defaultMaxHistoryTime" value="15" />
+
+    <!-- 默认单个文件大小 -->
+    <property name="defaultMaxFileSize" value="50MB" />
+
+    <!--日志路径: -/tmp 指定了文件目录,根据实际情况指定 -->
+    <property name="log.home" value="${appLogHome:-/tmp}" />
+    <property name="log.base" value="${log.home}/logs/${appId}" />
+
+    <!-- 日志输出格式 -->
+    <property name="FILE_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level--- [%t] %logger{80} :%msg%n" />
+
+    <!-- logstash 输出格式 -->
+    <property name="LOGSTASH_LOG_PATTERN" value="[%level] [%date{ISO8601}] [%logger] [%thread] [%c] %msg%n" />
+
+    <!-- base package -->
+    <property name="base.package" value="com.kona.framework" />
+
+    <!-- Logstash接入节点 -->
+    <appender name="LOGSTASH-APPENDER" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${log.base}/logstash/logstash.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>${log.base}/logstash/%d{yyyy-MM-dd}/%d{yyyy-MM-dd}_logstash.log</FileNamePattern>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${LOGSTASH_LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <!-- REST报文输出节点 -->
+    <appender name="REST-APPENDER" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${log.base}/restful.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${log.base}/%d{yyyy-MM-dd}/restful.%d{yyyy-MM-dd}-%i.log</fileNamePattern>
+            <maxHistory>${defaultMaxHistory}</maxHistory>
+            <TimeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <MaxFileSize>${defaultMaxFileSize}</MaxFileSize>
+            </TimeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${FILE_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <!-- JDBC输出节点 -->
+    <appender name="JDBC-APPENDER" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${log.base}/jdbc.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${log.base}/%d{yyyy-MM-dd}/jdbc.%d{yyyy-MM-dd}-%i.log</fileNamePattern>
+            <maxHistory>${defaultMaxHistory}</maxHistory>
+            <TimeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <MaxFileSize>${defaultMaxFileSize}</MaxFileSize>
+            </TimeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${FILE_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <!-- JDBC SLOW LOG -->
+    <appender name="SLOW-JDBC-APPENDER" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${log.base}/jdbc-slow.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${log.base}/%d{yyyy-MM-dd}/jdbc-slow.%d{yyyy-MM-dd}-%i.log</fileNamePattern>
+            <maxHistory>${defaultMaxHistory}</maxHistory>
+            <TimeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <MaxFileSize>${defaultMaxFileSize}</MaxFileSize>
+            </TimeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${FILE_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <!-- BIZ输出节点 -->
+    <appender name="BIZ-APPENDER" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${log.base}/biz.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${log.base}/%d{yyyy-MM-dd}/biz.%d{yyyy-MM-dd}-%i.log</fileNamePattern>
+            <maxHistory>${defaultMaxHistory}</maxHistory>
+            <TimeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <MaxFileSize>${defaultMaxFileSize}</MaxFileSize>
+            </TimeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${FILE_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <!-- MQ输出节点 -->
+    <appender name="MQ-APPENDER" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${log.base}/mq.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${log.base}/%d{yyyy-MM-dd}/mq.%d{yyyy-MM-dd}-%i.log</fileNamePattern>
+            <maxHistory>${defaultMaxHistory}</maxHistory>
+            <TimeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <MaxFileSize>${defaultMaxFileSize}</MaxFileSize>
+            </TimeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${FILE_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <!-- 根输出节点 -->
+    <appender name="ROOT-APPENDER" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${log.base}/root.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${log.base}/%d{yyyy-MM-dd}/root.%d{yyyy-MM-dd}-%i.log</fileNamePattern>
+            <maxHistory>${defaultMaxHistory}</maxHistory>
+            <TimeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <MaxFileSize>${defaultMaxFileSize}</MaxFileSize>
+            </TimeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${FILE_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+
+    <!--#### 异步日志输出节点包装 ####-->
+    <appender name ="ASYNC-LOGSTASH-APPENDER" class= "ch.qos.logback.classic.AsyncAppender">
+        <discardingThreshold>0</discardingThreshold>
+        <queueSize>20480</queueSize>
+        <appender-ref ref ="LOGSTASH-APPENDER"/>
+    </appender>
+
+    <appender name ="ASYNC-REST-APPENDER" class= "ch.qos.logback.classic.AsyncAppender">
+        <discardingThreshold>0</discardingThreshold>
+        <queueSize>40960</queueSize>
+        <appender-ref ref ="REST-APPENDER"/>
+    </appender>
+
+    <appender name ="ASYNC-JDBC-APPENDER" class= "ch.qos.logback.classic.AsyncAppender">
+        <discardingThreshold>0</discardingThreshold>
+        <queueSize>81920</queueSize>
+        <appender-ref ref ="JDBC-APPENDER"/>
+    </appender>
+
+    <appender name ="ASYNC-SLOW-JDBC-APPENDER" class= "ch.qos.logback.classic.AsyncAppender">
+        <discardingThreshold>0</discardingThreshold>
+        <queueSize>81920</queueSize>
+        <appender-ref ref ="SLOW-JDBC-APPENDER"/>
+    </appender>
+
+    <appender name ="ASYNC-BIZ-APPENDER" class= "ch.qos.logback.classic.AsyncAppender">
+        <discardingThreshold>0</discardingThreshold>
+        <queueSize>40960</queueSize>
+        <appender-ref ref ="BIZ-APPENDER"/>
+    </appender>
+
+    <appender name ="ASYNC-MQ-APPENDER" class= "ch.qos.logback.classic.AsyncAppender">
+        <discardingThreshold>0</discardingThreshold>
+        <queueSize>40960</queueSize>
+        <appender-ref ref ="MQ-APPENDER"/>
+    </appender>
+
+    <appender name ="ASYNC-ROOT-APPENDER" class= "ch.qos.logback.classic.AsyncAppender">
+        <discardingThreshold>0</discardingThreshold>
+        <queueSize>10240</queueSize>
+        <appender-ref ref ="ROOT-APPENDER"/>
+    </appender>
+
+    <!--#### logger包装 ####-->
+
+    <!--#### JDBC Logger ####-->
+    <logger name="com.alibaba.druid" level="off" additivity="false">
+        <appender-ref ref="ASYNC-JDBC-APPENDER"/>
+        <appender-ref ref="ASYNC-LOGSTASH-APPENDER" />
+    </logger>
+
+    <logger name="druid.sql.DataSource" level="off" additivity="false">
+        <appender-ref ref="ASYNC-JDBC-APPENDER"/>
+        <appender-ref ref="ASYNC-LOGSTASH-APPENDER" />
+    </logger>
+
+    <logger name="druid.sql.Connection" level="off" additivity="false">
+        <appender-ref ref="ASYNC-JDBC-APPENDER"/>
+        <appender-ref ref="ASYNC-LOGSTASH-APPENDER" />
+    </logger>
+
+    <logger name="druid.sql.Statement" level="debug" additivity="false">
+        <appender-ref ref="ASYNC-JDBC-APPENDER"/>
+        <appender-ref ref="ASYNC-LOGSTASH-APPENDER" />
+    </logger>
+
+    <logger name="druid.sql.ResultSet" level="error" additivity="false">
+        <appender-ref ref="ASYNC-JDBC-APPENDER"/>
+        <appender-ref ref="ASYNC-LOGSTASH-APPENDER" />
+    </logger>
+
+    <logger name="Sharding-JDBC-SQL" level="info" additivity="false">
+        <appender-ref ref="ASYNC-JDBC-APPENDER"/>
+        <appender-ref ref="ASYNC-LOGSTASH-APPENDER" />
+    </logger>
+
+    <logger name="org.apache.ibatis.logging.slf4j" level="off" additivity="false">
+        <appender-ref ref="ASYNC-JDBC-APPENDER"/>
+        <appender-ref ref="ASYNC-LOGSTASH-APPENDER" />
+    </logger>
+
+    <logger name="org.springframework.jdbc.datasource" level="off" additivity="false">
+        <appender-ref ref="ASYNC-JDBC-APPENDER"/>
+        <appender-ref ref="ASYNC-LOGSTASH-APPENDER" />
+    </logger>
+
+    <logger name="org.mybatis.spring.transaction" level="off" additivity="false">
+        <appender-ref ref="ASYNC-JDBC-APPENDER"/>
+        <appender-ref ref="ASYNC-LOGSTASH-APPENDER" />
+    </logger>
+
+    <!-- slow log -->
+    <logger name="com.alibaba.druid.filter.stat.StatFilter" level="error" additivity="false">
+        <appender-ref ref="ASYNC-JDBC-APPENDER"/>
+        <appender-ref ref="ASYNC-SLOW-JDBC-APPENDER"/>
+        <appender-ref ref="ASYNC-LOGSTASH-APPENDER" />
+    </logger>
+
+    <!--#### BIZ-APPENDER ####-->
+
+    <!-- web -->
+    <logger name="${base.package}.web" level="info" additivity="false">
+        <appender-ref ref="ASYNC-BIZ-APPENDER" />
+        <appender-ref ref="ASYNC-LOGSTASH-APPENDER" />
+    </logger>
+
+    <!-- service -->
+    <logger name="${base.package}.service" level="info" additivity="false">
+        <appender-ref ref="ASYNC-BIZ-APPENDER" />
+        <appender-ref ref="ASYNC-LOGSTASH-APPENDER" />
+    </logger>
+
+    <!-- common -->
+    <logger name="${base.package}.common" level="info" additivity="false">
+        <appender-ref ref="ASYNC-BIZ-APPENDER"/>
+        <appender-ref ref="ASYNC-LOGSTASH-APPENDER" />
+    </logger>
+
+    <!-- feign -->
+    <logger name="${base.package}.integration.feign" level="info" additivity="false">
+        <appender-ref ref="ASYNC-REST-APPENDER" />
+        <appender-ref ref="ASYNC-LOGSTASH-APPENDER" />
+    </logger>
+
+    <!--mq-->
+    <logger name="${base.package}.integration.stream" level="info" additivity="false">
+        <appender-ref ref="ASYNC-MQ-APPENDER" />
+        <appender-ref ref="ASYNC-LOGSTASH-APPENDER" />
+    </logger>
+
+    <!-- db -->
+    <logger name="${base.package}.dao" level="info" additivity="false">
+        <appender-ref ref="ASYNC-JDBC-APPENDER"/>
+        <appender-ref ref="ASYNC-LOGSTASH-APPENDER" />
+    </logger>
+
+    <!-- config -->
+    <logger name="${base.package}.config" level="info" additivity="false">
+        <appender-ref ref="ASYNC-ROOT-APPENDER"/>
+        <appender-ref ref="ASYNC-LOGSTASH-APPENDER" />
+    </logger>
+
+    <logger name="com.netflix.util.concurrent" level="warn" additivity="false">
+        <appender-ref ref="ASYNC-ROOT-APPENDER" />
+        <appender-ref ref="ASYNC-LOGSTASH-APPENDER" />
+    </logger>
+
+    <!--#### ROOT Logger ####-->
+    <root level="INFO">
+        <appender-ref ref="ASYNC-ROOT-APPENDER" />
+        <appender-ref ref="ASYNC-LOGSTASH-APPENDER" />
+    </root>
+
+</configuration>

@@ -1,0 +1,163 @@
+app:
+  id: boot
+
+server:
+  port: 8092
+
+#swagger配置
+swagger:
+  enable: true
+
+spring:
+  profiles:
+    active: dev
+  application:
+    name: kona-framework
+
+  # 数据源
+  datasource:
+    druid:
+      #主从数据源配置
+      master:
+        enable: true
+        #不定义为候选Bean
+        defaultCandidate: true
+        url: jdbc:mysql://139.196.141.5:3306/spring_cloud_slave2?useUnicode=true&characterEncoding=utf8&autoReconnect=true&failOverReadOnly=false
+        username: panyuanyuan
+        password: j0fF8o5qIgn2ECFdF4v7slS1d/ybbqYWcBEvFzZzgbQd534GBxHohWB34ZVpLArVZ0tvG+chAMHXGlg/k0aakQ==
+        #连接属性
+        connection-properties: connectTimeout=6000;socketTimeout=180000;config.decrypt=true
+      slave1:
+        enable: true
+        #不定义为候选Bean
+        defaultCandidate: true
+        url: jdbc:mysql://139.196.141.5:3306/spring_cloud_slave2?useUnicode=true&characterEncoding=utf8&autoReconnect=true&failOverReadOnly=false
+        username: panyuanyuan
+        password: j0fF8o5qIgn2ECFdF4v7slS1d/ybbqYWcBEvFzZzgbQd534GBxHohWB34ZVpLArVZ0tvG+chAMHXGlg/k0aakQ==
+        #连接属性
+        connection-properties: connectTimeout=6000;socketTimeout=180000;config.decrypt=true
+      slave2:
+        enable: true
+        #不定义为候选Bean
+        defaultCandidate: true
+        url: jdbc:mysql://139.196.141.5:3306/spring_cloud_slave2?useUnicode=true&characterEncoding=utf8&autoReconnect=true&failOverReadOnly=false
+        username: panyuanyuan
+        password: j0fF8o5qIgn2ECFdF4v7slS1d/ybbqYWcBEvFzZzgbQd534GBxHohWB34ZVpLArVZ0tvG+chAMHXGlg/k0aakQ==
+        #连接属性
+        connection-properties: connectTimeout=6000;socketTimeout=180000;config.decrypt=true
+
+      #驱动类型
+      driver-class-name: com.mysql.jdbc.Driver
+      #连接属性
+      connection-properties: connectTimeout=6000;socketTimeout=180000;config.decrypt=true
+      #连接池中初始连接数量
+      initial-size: 5
+      #连接池中最小连接数量
+      min-idle: 2
+      #连接池中最大连接数量
+      max-active: 20
+      #用于检测连接有效性的查询语句
+      validation-query: select 1
+      #检测连接是否有效的超时时间（单位：秒)
+      validation-query-timeout: 10
+      #建议配置为true，不影响性能，并且保证安全性。申请连接的时候检测，如果空闲时间大于timeBetweenEvictionRunsMillis，执行validationQuery检测连接是否有效。
+      test-while-idle: true
+      #申请连接时执行validationQuery检测连接是否有效，做了这个配置会降低性能
+      test-on-borrow: false
+      #归还连接时执行validationQuery检测连接是否有效，做了这个配置会降低性能
+      test-on-return: false
+      #获取连接时最大等待时间(ms)
+      max-wait: 30000
+      #关闭公平锁，提升性能
+      use-unfair-lock: true
+      #间隔多久才进行一次检测，检测需要关闭的空闲连接(ms)
+      time-between-eviction-runs-millis: 60000
+      #一个空闲连接在池中最小生存的时间(ms)
+      min-evictable-idle-time-millis: 300000
+      #一个空闲连接在池中最大生存的时间(ms)
+      max-evictable-idle-time-millis: 600000
+      #是否缓存preparedStatement，也就是PSCache。PSCache内存占用优化对于支持游标的数据库（Oracle、SQL Server、DB2等，MySql需要5.5+）性能提升巨大
+      pool-prepared-statements: true
+      #指定每个连接上PSCache的大小
+      max-pool-prepared-statement-per-connection-size: 100
+      #关闭申请却忘记关闭的连接（怀疑内存泄漏时使用，有一定性能影响）
+      remove-abandoned: false
+      #一个连接从申请到被关闭之间的最大生命周期(ms)
+      remove-abandoned-timeout-millis: 300000
+      #强制关闭连接时是否记录日志
+      log-abandoned: true
+      #执行查询的超时时间(秒)，执行Statement对象时如果超过此时间，则抛出SQLException
+      query-timeout: 30
+      #执行一个事务的超时时间(秒)，执行Statement对象时判断是否为事务，如果此项未设置，则使用queryTimeout
+      transaction-query-timeout: 120
+      #过滤器
+      filter:
+        #统计
+        stat:
+          enabled: true
+          #对统计的sql进行合并
+          merge-sql: true
+          log-slow-sql: true
+          slow-sql-millis: 300
+        #密码解密
+        config:
+          enabled: true
+        #防止sql注入
+        wall:
+          enabled: true
+      #监控配置
+      stat-view-servlet:
+        #开启监控,生产可以关闭
+        enabled: true
+        #自定义监控路径
+        url-pattern: '/druid/*'
+        #登录用户
+        login-username: druid
+        #密码
+        login-password: druid
+        #是否开启重置按钮功能
+        reset-enable: false
+      web-stat-filter:
+        enabled: true
+        url-pattern: '/*'
+        exclusions: '*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*'
+
+#mybatis配置
+mybatis:
+  configuration:
+    #全局映射器启用缓存
+    cache-enabled: true
+    #延迟加载的全局开关。当开启时，所有关联对象都会延迟加载
+    lazy-loading-enabled: true
+    #当开启时，任何方法的调用都会加载该对象的所有属性
+    aggressive-lazy-loading: false
+    #是否允许单一语句返回多结果集
+    multiple-result-sets-enabled: true
+    #使用列标签代替列名
+    use-column-label: true
+    #指定 MyBatis 应如何自动映射列到字段或属性。 none 表示取消自动映射；partial 只会自动映射没有定义嵌套结果集映射的结果集。 full 会自动映射任意复杂的结果集（无论是否嵌套）
+    auto-mapping-behavior: full
+    #设置超时时间，它决定驱动等待数据库响应的秒数
+    default-statement-timeout: 180
+    #当没有为参数提供特定的 JDBC 类型时，为空值指定 JDBC 类型。 某些驱动需要指定列的 JDBC 类型，多数情况直接用一般类型即可，比如 null、varchar 或 other
+    jdbc-type-for-null: null
+    #默认session，即同一session中，相同的SQL语句只能执行一次。当作用域改为statement时，同一session中，相同SQL可执行多次
+    local-cache-scope: session
+  #Locations of Mapper xml config file.
+  mapper-locations:
+    - classpath*:/mapper/*.xml
+  #指定类型别名扫描包名(使用英文逗号进行分割)
+  type-aliases-package: com.kona.framework.model.po
+
+#分页插件的配置
+pagehelper:
+  #分页插件会自动检测当前的数据库链接，自动选择合适的分页方式。特别注意：使用 SqlServer2012 数据库时，需要手动指定为 sqlserver2012，否则会使用 SqlServer2005 的方式进行分页。
+  #helper-dialect:
+  #默认值为 false，该参数对使用 RowBounds 作为分页参数时有效。 当该参数设置为 true 时，会将 RowBounds 中的 offset 参数当成 pageNum 使用，可以用页码和页面大小两个参数进行分页。
+  offset-as-page-num: true
+  #默认值为false，该参数对使用 RowBounds 作为分页参数时有效。 当该参数设置为true时，使用 RowBounds 分页会进行 count 查询。
+  row-bounds-with-count: true
+  #默认值为 false，当该参数设置为 true 时，如果 pageSize=0 或者 RowBounds.limit = 0 就会查询出全部的结果（相当于没有执行分页查询，但是返回结果仍然是 Page 类型）。
+  page-size-zero: false
+  #分页合理化参数，默认值为false。当该参数设置为 true 时，pageNum<=0 时会查询第一页， pageNum>pages（超过总数时），会查询最后一页。默认false 时，直接根据参数进行查询。
+  reasonable: false

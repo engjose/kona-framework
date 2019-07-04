@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="60 seconds" debug="false">
+    <conversionRule conversionWord="clr" converterClass="org.springframework.boot.logging.logback.ColorConverter" />
+
+    <property name="CONSOLE_LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} %clr(%-5level) %clr(&#45;&#45;&#45;) [%clr(%t){faint}] %cyan(%logger{80}) :%msg%n" />
+
+    <appender name="ROOT_CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <withJansi>true</withJansi>
+        <encoder>
+            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="com.netflix.util.concurrent" level="warn" additivity="false">
+        <appender-ref ref="ROOT_CONSOLE"/>
+    </logger>
+
+    <logger name="com.kona.springboot.sample" level="debug" additivity="false">
+        <appender-ref ref="ROOT_CONSOLE"/>
+    </logger>
+
+    <logger name="org.springframework.jdbc.datasource" level="debug" additivity="false">
+        <appender-ref ref="ROOT_CONSOLE"/>
+    </logger>
+
+    <logger name="org.apache.ibatis.logging.slf4j" level="debug" additivity="false">
+        <appender-ref ref="ROOT_CONSOLE" />
+    </logger>
+
+
+    <logger name="com.github.ov.framework.cloud.dao" level="debug" additivity="false">
+        <appender-ref ref="ROOT_CONSOLE" />
+    </logger>
+
+
+    <logger name="druid.sql.DataSource" level="debug" additivity="false">
+        <appender-ref ref="ROOT_CONSOLE"/>
+    </logger>
+
+
+    <logger name="druid.sql.Statement" level="debug" additivity="false">
+        <appender-ref ref="ROOT_CONSOLE"/>
+    </logger>
+
+
+    <logger name="druid.sql.ResultSet" level="debug" additivity="false">
+        <appender-ref ref="ROOT_CONSOLE"/>
+    </logger>
+
+    <!-- slow log -->
+    <logger name="com.alibaba.druid.filter.stat.StatFilter" level="error" additivity="false">
+        <appender-ref ref="ROOT_CONSOLE"/>
+    </logger>
+
+    <!-- mybatis -->
+    <logger name="org.mybatis.spring" level="debug" additivity="false">
+        <appender-ref ref="ROOT_CONSOLE"/>
+    </logger>
+
+    <logger name="org.mybatis.spring.transaction" level="debug" additivity="false">
+        <appender-ref ref="ROOT_CONSOLE"/>
+    </logger>
+
+    <root level="info">
+        <appender-ref ref="ROOT_CONSOLE"/>
+    </root>
+</configuration>

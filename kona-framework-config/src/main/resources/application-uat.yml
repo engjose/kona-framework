@@ -1,0 +1,5 @@
+logging:
+  config: classpath:logback-spring-uat.xml
+
+apollo:
+  meta: http://192.168.199.176:8080
