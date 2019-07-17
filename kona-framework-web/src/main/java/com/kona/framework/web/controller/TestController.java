@@ -1,10 +1,12 @@
 package com.kona.framework.web.controller;
 
+import com.kona.base.lib.biz.BaseService;
 import com.kona.base.lib.exception.ServerException;
 import com.kona.base.model.vo.BaseResp;
+import com.kona.framework.common.bundle.MessageCode;
 import com.kona.framework.config.apollo.ConfigBean;
-import com.kona.framework.model.po.StoreMeta;
-import com.kona.framework.web.stream.biz.StoreMetaBiz;
+import com.kona.framework.model.po.UserInfo;
+import com.kona.framework.web.stream.biz.UserInfoBiz;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,10 +20,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/test")
 @RefreshScope
-public class TestController {
+public class TestController extends BaseService {
 
     @Autowired
-    private StoreMetaBiz storeMetaBiz;
+    private UserInfoBiz userInfoBiz;
 
     @Autowired
     private ConfigBean configBean;
@@ -31,13 +33,18 @@ public class TestController {
         throw new ServerException("333", "错误{0}", new Object[]{"哈哈"});
     }
 
-    @GetMapping("/get-store/{key}")
-    public BaseResp<StoreMeta> selectStoreMeta(@PathVariable Long key) {
-        return new BaseResp<>(storeMetaBiz.selectOneByPrimaryKey(key));
+    @GetMapping("/get-user/{key}")
+    public BaseResp<UserInfo> selectStoreMeta(@PathVariable String key) {
+        return new BaseResp<>(userInfoBiz.selectOneByPrimaryKey(key));
     }
 
     @GetMapping("/config")
-    public BaseResp<Object> config() {
+    public BaseResp config() {
         return new BaseResp<>(configBean);
+    }
+
+    @GetMapping("/bundleMsg")
+    public BaseResp getBundle() {
+        throw new ServerException(MessageCode.SF999999, msg.getMessage(MessageCode.SF999999), new String[]{"我错了..."});
     }
 }

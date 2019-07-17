@@ -9,11 +9,6 @@ package com.kona.framework.common.bundle;
 public class MessageCode { 
  
 	/** 
- 	 * [SF8888] - 异常测试 
- 	 */
-	 public static final String SF8888 = "8888"; 
- 
-	/** 
  	 * [SF000000] - 处理成功！ 
  	 */
 	 public static final String SF000000 = "000000"; 

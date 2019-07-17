@@ -4,10 +4,6 @@ app:
 server:
   port: 8092
 
-#swagger配置
-swagger:
-  enable: true
-
 spring:
   profiles:
     active: dev
@@ -17,35 +13,6 @@ spring:
   # 数据源
   datasource:
     druid:
-      #主从数据源配置
-      master:
-        enable: true
-        #不定义为候选Bean
-        defaultCandidate: true
-        url: jdbc:mysql://139.196.141.5:3306/spring_cloud_slave2?useUnicode=true&characterEncoding=utf8&autoReconnect=true&failOverReadOnly=false
-        username: panyuanyuan
-        password: j0fF8o5qIgn2ECFdF4v7slS1d/ybbqYWcBEvFzZzgbQd534GBxHohWB34ZVpLArVZ0tvG+chAMHXGlg/k0aakQ==
-        #连接属性
-        connection-properties: connectTimeout=6000;socketTimeout=180000;config.decrypt=true
-      slave1:
-        enable: true
-        #不定义为候选Bean
-        defaultCandidate: true
-        url: jdbc:mysql://139.196.141.5:3306/spring_cloud_slave2?useUnicode=true&characterEncoding=utf8&autoReconnect=true&failOverReadOnly=false
-        username: panyuanyuan
-        password: j0fF8o5qIgn2ECFdF4v7slS1d/ybbqYWcBEvFzZzgbQd534GBxHohWB34ZVpLArVZ0tvG+chAMHXGlg/k0aakQ==
-        #连接属性
-        connection-properties: connectTimeout=6000;socketTimeout=180000;config.decrypt=true
-      slave2:
-        enable: true
-        #不定义为候选Bean
-        defaultCandidate: true
-        url: jdbc:mysql://139.196.141.5:3306/spring_cloud_slave2?useUnicode=true&characterEncoding=utf8&autoReconnect=true&failOverReadOnly=false
-        username: panyuanyuan
-        password: j0fF8o5qIgn2ECFdF4v7slS1d/ybbqYWcBEvFzZzgbQd534GBxHohWB34ZVpLArVZ0tvG+chAMHXGlg/k0aakQ==
-        #连接属性
-        connection-properties: connectTimeout=6000;socketTimeout=180000;config.decrypt=true
-
       #驱动类型
       driver-class-name: com.mysql.jdbc.Driver
       #连接属性
@@ -105,18 +72,6 @@ spring:
         #防止sql注入
         wall:
           enabled: true
-      #监控配置
-      stat-view-servlet:
-        #开启监控,生产可以关闭
-        enabled: true
-        #自定义监控路径
-        url-pattern: '/druid/*'
-        #登录用户
-        login-username: druid
-        #密码
-        login-password: druid
-        #是否开启重置按钮功能
-        reset-enable: false
       web-stat-filter:
         enabled: true
         url-pattern: '/*'

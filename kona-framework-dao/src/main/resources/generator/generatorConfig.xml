@@ -27,9 +27,9 @@
 
         <!-- 配置数据库连接 -->
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&amp;characterEncoding=utf-8"
+                        connectionURL="jdbc:mysql://127.0.0.1:3306/spring_cloud?useUnicode=true&amp;characterEncoding=utf8&amp;autoReconnect=true&amp;failOverReadOnly=false&amp;useSSL=false"
                         userId="panyuanyuan"
-                        password="123456">
+                        password="ZTEywz0225">
 
             <property name="useInformationSchema" value="true" />
         </jdbcConnection>
@@ -57,7 +57,7 @@
         </javaClientGenerator>
 
         <!-- 设置数据库的表名和实体类名 -->
-        <table tableName="pipe_task" domainObjectName="PipeTask" mapperName="PipeTaskDao"
+        <table tableName="user_info" domainObjectName="UserInfo" mapperName="UserInfoDao"
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false">
